@@ -1,159 +1,86 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BONI EXIT EXAM - Online Management examination practice platform">
   <title>BONI EXIT EXAM</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #071426;
-      color: white;
-    }
-
-    header {
-      padding: 22px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #0c1d34;
-      border-bottom: 1px solid #263b56;
-    }
-
-    .logo {
-      color: #e9b949;
-      font-size: 23px;
-      font-weight: bold;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 18px;
-      font-size: 14px;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 85px 20px;
-      background: linear-gradient(135deg, #102c4c, #071426);
-    }
-
-    .hero h1 {
-      font-size: 38px;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 span {
-      color: #e9b949;
-    }
-
-    .hero p {
-      color: #c4d0df;
-      line-height: 1.7;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 14px 27px;
-      background: #e9b949;
-      color: #071426;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 7px;
-    }
-
-    .section {
-      padding: 55px 7%;
-      text-align: center;
-    }
-
-    .section h2 {
-      margin-bottom: 30px;
-      color: #e9b949;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: #10243c;
-      padding: 28px 18px;
-      border: 1px solid #263b56;
-      border-radius: 12px;
-    }
-
-    .card h3 {
-      margin-bottom: 12px;
-      color: #e9b949;
-    }
-
-    .card p {
-      color: #c4d0df;
-      line-height: 1.6;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      background: #0c1d34;
-      color: #aab8ca;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    body { background: #071426; color: #fff; line-height: 1.6; }
+    header { padding: 18px 7%; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; background: #0c1d34; border-bottom: 1px solid #263b56; }
+    .logo { color: #e9b949; font-size: 22px; font-weight: 700; }
+    nav { display: flex; gap: 16px; flex-wrap: wrap; }
+    nav a { color: white; text-decoration: none; font-size: 14px; }
+    nav a:hover { color: #e9b949; }
+    .hero { text-align: center; padding: 72px 20px; background: linear-gradient(135deg, #102c4c, #071426); }
+    .hero h1 { font-size: clamp(30px, 5vw, 42px); margin-bottom: 16px; line-height: 1.2; }
+    .hero h1 span, h2, .card h3 { color: #e9b949; }
+    .hero p { color: #c4d0df; max-width: 650px; margin: auto; }
+    .section { padding: 48px 7%; text-align: center; }
+    .section h2 { margin-bottom: 22px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
+    .card { background: #10243c; padding: 24px 18px; border: 1px solid #263b56; border-radius: 12px; }
+    .card h3 { margin-bottom: 10px; }
+    .card p { color: #c4d0df; }
+    .btn { display: inline-block; border: 0; cursor: pointer; margin-top: 18px; padding: 12px 22px; background: #e9b949; color: #071426; text-decoration: none; font-weight: 700; border-radius: 7px; }
+    .btn:hover { filter: brightness(1.08); }
+    .btn.secondary { background: #263b56; color: white; border: 1px solid #48617e; }
+    .btn.danger { background: #b93b46; color: white; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    #exam-area { display: none; max-width: 900px; margin: 28px auto; padding: 0 16px 50px; text-align: left; }
+    .exam-panel { background: #10243c; border: 1px solid #334b68; border-radius: 14px; padding: 22px; }
+    .exam-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; color: #c4d0df; }
+    #timer { color: #ffd36a; font-weight: 700; }
+    #question-count { color: #c4d0df; margin-bottom: 10px; }
+    #question-text { font-size: 20px; margin: 8px 0 18px; }
+    .option { display: flex; gap: 10px; align-items: flex-start; padding: 13px; margin: 10px 0; border: 1px solid #38516e; border-radius: 9px; cursor: pointer; background: #0b1d32; }
+    .option:hover { border-color: #e9b949; }
+    .option input { margin-top: 5px; accent-color: #e9b949; }
+    .exam-actions { display: flex; gap: 10px; justify-content: space-between; flex-wrap: wrap; margin-top: 20px; }
+    .exam-actions .btn { margin-top: 0; }
+    #result-area { display: none; max-width: 900px; margin: 28px auto 50px; padding: 22px; background: #10243c; border: 1px solid #334b68; border-radius: 14px; }
+    .result-score { color: #ffd36a; font-size: 30px; font-weight: 700; margin: 10px 0; }
+    .review-item { text-align: left; padding: 16px; margin-top: 14px; border-radius: 9px; background: #0b1d32; border: 1px solid #38516e; }
+    .correct { color: #78d69a; } .incorrect { color: #ff9292; }
+    footer { text-align: center; padding: 25px; background: #0c1d34; color: #aab8ca; }
+    .muted { color: #c4d0df; }
+    @media (max-width: 600px) { header { padding: 16px 5%; } .section { padding: 38px 5%; } .exam-panel { padding: 16px; } }
   </style>
 </head>
 <body>
-
 <header>
   <div class="logo">BONI EXIT EXAM</div>
   <nav>
     <a href="#home">Home</a>
     <a href="#features">Features</a>
+    <a href="#exam-area" id="nav-exam">Online Exam</a>
     <a href="#about">About</a>
   </nav>
 </header>
 
 <section class="hero" id="home">
   <h1>Prepare Today.<br><span>Pass Tomorrow.</span></h1>
-  <p>
-    Welcome to BONI EXIT EXAM, an online examination
-    and preparation platform designed for university
-    students across Ethiopia.
-  </p>
+  <p>Welcome to BONI EXIT EXAM, an online examination and preparation platform designed for university students across Ethiopia.</p>
   <a href="#features" class="btn">Explore Platform</a>
 </section>
 
 <section class="section" id="features">
   <h2>Our Platform</h2>
-
   <div class="cards">
     <div class="card">
       <h3>📚 Study Materials</h3>
       <p>Access learning materials and course notes.</p>
     </div>
-
     <div class="card">
       <h3>📝 Online Exams</h3>
       <p>Practice with university-level examination questions.</p>
+      <button class="btn" id="open-exam">Start Management Exam</button>
     </div>
-
     <div class="card">
       <h3>📊 Exam Results</h3>
-      <p>Review your examination scores and performance.</p>
+      <p>Review your examination score and answers after submission.</p>
     </div>
-
     <div class="card">
       <h3>🎓 Universities</h3>
       <p>Prepare for exit examinations across Ethiopia.</p>
@@ -161,13 +88,50 @@
   </div>
 </section>
 
+<section id="exam-area" aria-live="polite">
+  <div class="exam-panel" id="exam-start-panel">
+    <h2>Introduction to Management Exam</h2>
+    <p class="muted" id="bank-info">Loading question bank...</p>
+    <p class="muted">Choose how many questions you want to answer. The exam is timed and your score is calculated automatically when you submit.</p>
+    <label for="question-limit">Number of questions:</label>
+    <select id="question-limit" style="display:block;margin-top:8px;padding:11px;width:100%;max-width:260px;border-radius:7px;">
+      <option value="20">20 questions</option>
+      <option value="50">50 questions</option>
+      <option value="100">100 questions</option>
+      <option value="200" selected>All 200 questions</option>
+    </select>
+    <button class="btn" id="begin-exam">Begin Exam</button>
+    <p id="load-error" class="incorrect" role="alert" style="margin-top:12px;"></p>
+  </div>
+
+  <div class="exam-panel" id="question-panel" style="display:none;">
+    <div class="exam-top">
+      <span id="progress-label">Question 1</span>
+      <span>Time remaining: <span id="timer">120:00</span></span>
+    </div>
+    <div id="question-count"></div>
+    <h3 id="question-text"></h3>
+    <div id="options"></div>
+    <div class="exam-actions">
+      <button class="btn secondary" id="previous-question">Previous</button>
+      <button class="btn secondary" id="next-question">Next</button>
+      <button class="btn danger" id="submit-exam">Submit Exam</button>
+    </div>
+  </div>
+</section>
+
+<section id="result-area">
+  <h2>Exam Result</h2>
+  <div class="result-score" id="score-text"></div>
+  <p id="result-summary" class="muted"></p>
+  <button class="btn" id="try-again">Take Another Exam</button>
+  <h2 style="margin-top:28px;">Answer Review</h2>
+  <div id="answer-review"></div>
+</section>
+
 <section class="section" id="about">
   <h2>About BONI EXIT EXAM</h2>
-  <p>
-    Our mission is to help Ethiopian university students
-    prepare effectively for their exit examinations
-    through accessible digital learning.
-  </p>
+  <p>Our mission is to help Ethiopian university students prepare effectively for their exit examinations through accessible digital learning.</p>
 </section>
 
 <footer>
@@ -175,10 +139,172 @@
   <p>Empowering Ethiopian University Students.</p>
 </footer>
 
-  <script 
-    src="boni-management-questions.js">
-    
-  </script>
+<!-- Load the question bank first. Keep this file in the same repository folder as index.html. -->
+<script src="./boni-management-questions.js"></script>
+<script>
+(() => {
+  const byId = (id) => document.getElementById(id);
+  const startPanel = byId('exam-start-panel');
+  const questionPanel = byId('question-panel');
+  const resultArea = byId('result-area');
+  const examArea = byId('exam-area');
+
+  let examQuestions = [];
+  let answers = {};
+  let currentIndex = 0;
+  let secondsLeft = 120 * 60;
+  let timerHandle = null;
+  let submitted = false;
+
+  function getQuestionBank() {
+    try {
+      if (typeof BONI_MANAGEMENT_EXAM === 'undefined' ||
+          !BONI_MANAGEMENT_EXAM ||
+          !Array.isArray(BONI_MANAGEMENT_EXAM.questions)) {
+        throw new Error('Question bank not found. Check that boni-management-questions.js is uploaded beside index.html.');
+      }
+      return BONI_MANAGEMENT_EXAM.questions;
+    } catch (error) {
+      byId('load-error').textContent = error.message;
+      byId('bank-info').textContent = 'Question bank could not be loaded.';
+      return [];
+    }
+  }
+
+  const bank = getQuestionBank();
+  if (bank.length) {
+    byId('bank-info').textContent = `${BONI_MANAGEMENT_EXAM.title} — ${bank.length} questions available.`;
+    byId('begin-exam').disabled = false;
+  } else {
+    byId('begin-exam').disabled = true;
+  }
+
+  function showExam() {
+    examArea.style.display = 'block';
+    resultArea.style.display = 'none';
+    examArea.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function startExam() {
+    if (!bank.length) return;
+    const requested = Number(byId('question-limit').value);
+    examQuestions = bank.slice(0, Math.min(requested, bank.length));
+    answers = {};
+    currentIndex = 0;
+    secondsLeft = 120 * 60;
+    submitted = false;
+    startPanel.style.display = 'none';
+    questionPanel.style.display = 'block';
+    resultArea.style.display = 'none';
+    showExam();
+    renderQuestion();
+    clearInterval(timerHandle);
+    timerHandle = setInterval(updateTimer, 1000);
+    updateTimer();
+  }
+
+  function updateTimer() {
+    const minutes = Math.floor(secondsLeft / 60);
+    const seconds = secondsLeft % 60;
+    byId('timer').textContent = `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+    if (secondsLeft <= 0) {
+      clearInterval(timerHandle);
+      submitExam(true);
+    } else {
+      secondsLeft--;
+    }
+  }
+
+  function renderQuestion() {
+    const q = examQuestions[currentIndex];
+    if (!q) return;
+    byId('progress-label').textContent = `Question ${currentIndex + 1} of ${examQuestions.length}`;
+    byId('question-count').textContent = q.chapter || '';
+    byId('question-text').textContent = q.question || '';
+    const optionsBox = byId('options');
+    optionsBox.replaceChildren();
+    Object.entries(q.options || {}).forEach(([key, value]) => {
+      const label = document.createElement('label');
+      label.className = 'option';
+      const radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = 'answer';
+      radio.value = key;
+      radio.checked = answers[q.id] === key;
+      radio.addEventListener('change', () => { answers[q.id] = key; });
+      const text = document.createElement('span');
+      text.textContent = `${key}. ${value}`;
+      label.append(radio, text);
+      optionsBox.appendChild(label);
+    });
+    byId('previous-question').disabled = currentIndex === 0;
+    byId('next-question').disabled = currentIndex === examQuestions.length - 1;
+  }
+
+  function submitExam(auto = false) {
+    if (submitted) return;
+    if (!auto && !confirm('Are you sure you want to submit your exam?')) return;
+    submitted = true;
+    clearInterval(timerHandle);
+    questionPanel.style.display = 'none';
+    resultArea.style.display = 'block';
+
+    let score = 0;
+    examQuestions.forEach(q => { if (answers[q.id] === q.answer) score++; });
+    const percent = examQuestions.length ? Math.round((score / examQuestions.length) * 100) : 0;
+    byId('score-text').textContent = `${score} / ${examQuestions.length} (${percent}%)`;
+    const unanswered = examQuestions.filter(q => !answers[q.id]).length;
+    byId('result-summary').textContent = `${unanswered} unanswered. ${auto ? 'The time limit ended and your exam was submitted automatically.' : 'Your exam has been submitted.'}`;
+
+    const review = byId('answer-review');
+    review.replaceChildren();
+    examQuestions.forEach((q, i) => {
+      const isCorrect = answers[q.id] === q.answer;
+      const item = document.createElement('div');
+      item.className = 'review-item';
+      const heading = document.createElement('h3');
+      heading.textContent = `${i + 1}. ${q.question}`;
+      const yourAnswer = document.createElement('p');
+      yourAnswer.className = isCorrect ? 'correct' : 'incorrect';
+      yourAnswer.textContent = `Your answer: ${answers[q.id] ? `${answers[q.id]}. ${q.options[answers[q.id]]}` : 'Not answered'} — ${isCorrect ? 'Correct' : 'Incorrect'}`;
+      const correctAnswer = document.createElement('p');
+      correctAnswer.className = 'correct';
+      correctAnswer.textContent = `Correct answer: ${q.answer}. ${q.answerText || q.options[q.answer] || ''}`;
+      const explanation = document.createElement('p');
+      explanation.className = 'muted';
+      explanation.textContent = `Explanation: ${q.explanation || 'No explanation supplied.'}`;
+      item.append(heading, yourAnswer, correctAnswer, explanation);
+      review.appendChild(item);
+    });
+    resultArea.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  byId('open-exam').addEventListener('click', () => {
+    startPanel.style.display = 'block';
+    questionPanel.style.display = 'none';
+    showExam();
+  });
+  byId('nav-exam').addEventListener('click', () => {
+    startPanel.style.display = 'block';
+    questionPanel.style.display = 'none';
+    showExam();
+  });
+  byId('begin-exam').addEventListener('click', startExam);
+  byId('previous-question').addEventListener('click', () => {
+    if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+  });
+  byId('next-question').addEventListener('click', () => {
+    if (currentIndex < examQuestions.length - 1) { currentIndex++; renderQuestion(); }
+  });
+  byId('submit-exam').addEventListener('click', () => submitExam(false));
+  byId('try-again').addEventListener('click', () => {
+    clearInterval(timerHandle);
+    resultArea.style.display = 'none';
+    questionPanel.style.display = 'none';
+    startPanel.style.display = 'block';
+    showExam();
+  });
+})();
+</script>
 </body>
-  </html>
-    
+</html>
