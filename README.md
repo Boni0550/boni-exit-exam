@@ -1,59 +1,28 @@
-# Exit Exam Interactive Quiz
+# Boni Exit Exam – Updated
 
-A simple, dependency-free web quiz for exit-exam practice. Pick a course, answer the multiple-choice questions against a countdown timer, and review your results.
+This is a refreshed, mobile-friendly version of the Boni Exit Exam website.
 
-## Courses
-
-| Course | Questions | Time limit |
-|---|---|---|
-| Business Ethics | 100 | 100 minutes |
-| Risk Management & Insurance | 120 | 120 minutes |
+## Included question banks
+- Business Ethics: 100 questions (preserved from the supplied ZIP)
+- Risk Management & Insurance: 120 questions (preserved from the supplied ZIP)
+- Introduction to Management: listed as coming soon because its question bank was not included in the supplied ZIP.
 
 ## Features
+- Responsive design for Android phones, tablets, and desktop
+- Course selection cards
+- Timed quizzes with automatic submission
+- Question navigation and answered-question progress
+- Previous / Next controls
+- Score calculation and answer review
 
-- Question navigator: jump to any question; answered questions are highlighted
-- Previous / Next buttons and a progress bar
-- Countdown timer with automatic submission when time runs out
-- Score summary and a full answer review (your answer vs. the correct answer)
-- Works on desktop and mobile, with no build step or external libraries
+## Publish to GitHub Pages
+1. Download and extract this ZIP.
+2. Open your GitHub repository: https://github.com/boni0550/boni-exit-exam
+3. Upload the contents of the `boni-exit-exam-updated` folder to the repository root (not the containing folder).
+4. Choose to replace the existing `index.html`, `css/style.css`, and `js/app.js`.
+5. Keep `data/questions.js` as supplied in this ZIP; it contains both existing question banks.
+6. Commit the changes to the branch and folder configured in Settings → Pages (usually `main` and `/ (root)`).
+7. Wait for GitHub Pages to deploy, then refresh the website. If the old version remains, clear the browser cache or open the page in a private tab.
 
-## Run locally
-
-Open `index.html` in any modern browser. No server or installation is needed.
-
-## Deploy with GitHub Pages
-
-1. Push this repository to GitHub.
-2. Go to **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**, select `main` and the `/ (root)` folder, then save.
-4. After a minute, the site is live at `https://<your-username>.github.io/<repository-name>/`.
-
-## Project structure
-
-```
-exit-exam-quiz/
-├── index.html          # Page markup
-├── css/
-│   └── style.css       # Styles
-├── js/
-│   └── app.js          # Quiz logic (navigation, timer, scoring, review)
-├── data/
-│   └── questions.js    # Question bank for both courses
-├── README.md
-└── .gitignore
-```
-
-## Adding or editing questions
-
-Questions live in `data/questions.js`. Each question follows this format:
-
-```js
-{
-  "id": 1,
-  "question": "Question text",
-  "options": { "A": "...", "B": "...", "C": "...", "D": "..." },
-  "answer": "B"
-}
-```
-
-To change a time limit, edit `quizMinutes` at the top of `js/app.js`.
+## Add Introduction to Management questions
+The third course is intentionally disabled until you provide its multiple-choice question bank. Add it only after its questions and correct answers are available, so the site does not invent exam content.
